@@ -1,0 +1,504 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TrainingSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CertificateTemplate">
+          <Key>
+            <PropertyRef Name="Certificate_ID" />
+          </Key>
+          <Property Name="Certificate_ID" Type="int" Nullable="false" />
+          <Property Name="Certificate_Template" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CourseClassification">
+          <Key>
+            <PropertyRef Name="Classification_ID" />
+          </Key>
+          <Property Name="Classification_ID" Type="int" Nullable="false" />
+          <Property Name="Classification_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CourseSchedule">
+          <Key>
+            <PropertyRef Name="Course_ID" />
+          </Key>
+          <Property Name="Course_ID" Type="int" Nullable="false" />
+          <Property Name="Course_Title" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Language" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Start_Time" Type="datetime" Nullable="false" />
+          <Property Name="End_Time" Type="datetime" Nullable="false" />
+          <Property Name="Course_Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Seats_Number" Type="int" Nullable="false" />
+          <Property Name="Course_Place" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="User_Type" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Classification_ID" Type="int" Nullable="false" />
+          <Property Name="Course_Type" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Certificate_ID" Type="int" Nullable="false" />
+          <Property Name="Trainer_Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RegisteredCourses">
+          <Key>
+            <PropertyRef Name="User_ID" />
+            <PropertyRef Name="Course_ID" />
+          </Key>
+          <Property Name="User_ID" Type="int" Nullable="false" />
+          <Property Name="Course_ID" Type="int" Nullable="false" />
+          <Property Name="Attendance_Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Evaluation_Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Certificate_Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SupportTickets">
+          <Key>
+            <PropertyRef Name="Ticket_No" />
+          </Key>
+          <Property Name="Ticket_No" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="User_ID" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="Role_ID" />
+          </Key>
+          <Property Name="Role_ID" Type="int" Nullable="false" />
+          <Property Name="Role_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="User_ID" Type="int" Nullable="false" />
+          <Property Name="Ar_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="En_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Role_ID" Type="int" Nullable="false" />
+          <Property Name="Degree" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Gender" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Section" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__CourseSch__Certi__59FA5E80">
+          <End Role="CertificateTemplate" Type="Self.CertificateTemplate" Multiplicity="1" />
+          <End Role="CourseSchedule" Type="Self.CourseSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CertificateTemplate">
+              <PropertyRef Name="Certificate_ID" />
+            </Principal>
+            <Dependent Role="CourseSchedule">
+              <PropertyRef Name="Certificate_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CourseSch__Class__59063A47">
+          <End Role="CourseClassification" Type="Self.CourseClassification" Multiplicity="1" />
+          <End Role="CourseSchedule" Type="Self.CourseSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CourseClassification">
+              <PropertyRef Name="Classification_ID" />
+            </Principal>
+            <Dependent Role="CourseSchedule">
+              <PropertyRef Name="Classification_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Registere__Cours__5DCAEF64">
+          <End Role="CourseSchedule" Type="Self.CourseSchedule" Multiplicity="1" />
+          <End Role="RegisteredCourses" Type="Self.RegisteredCourses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CourseSchedule">
+              <PropertyRef Name="Course_ID" />
+            </Principal>
+            <Dependent Role="RegisteredCourses">
+              <PropertyRef Name="Course_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Registere__User___5CD6CB2B">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="RegisteredCourses" Type="Self.RegisteredCourses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="RegisteredCourses">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SupportTi__User___5441852A">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="SupportTickets" Type="Self.SupportTickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="SupportTickets">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Users__Role_ID__534D60F1">
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRole">
+              <PropertyRef Name="Role_ID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="Role_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TrainingSystemModelStoreContainer">
+          <EntitySet Name="CertificateTemplate" EntityType="Self.CertificateTemplate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CourseClassification" EntityType="Self.CourseClassification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CourseSchedule" EntityType="Self.CourseSchedule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RegisteredCourses" EntityType="Self.RegisteredCourses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SupportTickets" EntityType="Self.SupportTickets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__CourseSch__Certi__59FA5E80" Association="Self.FK__CourseSch__Certi__59FA5E80">
+            <End Role="CertificateTemplate" EntitySet="CertificateTemplate" />
+            <End Role="CourseSchedule" EntitySet="CourseSchedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CourseSch__Class__59063A47" Association="Self.FK__CourseSch__Class__59063A47">
+            <End Role="CourseClassification" EntitySet="CourseClassification" />
+            <End Role="CourseSchedule" EntitySet="CourseSchedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Registere__Cours__5DCAEF64" Association="Self.FK__Registere__Cours__5DCAEF64">
+            <End Role="CourseSchedule" EntitySet="CourseSchedule" />
+            <End Role="RegisteredCourses" EntitySet="RegisteredCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Registere__User___5CD6CB2B" Association="Self.FK__Registere__User___5CD6CB2B">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="RegisteredCourses" EntitySet="RegisteredCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SupportTi__User___5441852A" Association="Self.FK__SupportTi__User___5441852A">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="SupportTickets" EntitySet="SupportTickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users__Role_ID__534D60F1" Association="Self.FK__Users__Role_ID__534D60F1">
+            <End Role="UserRole" EntitySet="UserRole" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TrainingSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CertificateTemplate">
+          <Key>
+            <PropertyRef Name="Certificate_ID" />
+          </Key>
+          <Property Name="Certificate_ID" Type="Int32" Nullable="false" />
+          <Property Name="Certificate_Template" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CourseSchedules" Relationship="Self.FK__CourseSch__Certi__59FA5E80" FromRole="CertificateTemplate" ToRole="CourseSchedule" />
+        </EntityType>
+        <EntityType Name="CourseClassification">
+          <Key>
+            <PropertyRef Name="Classification_ID" />
+          </Key>
+          <Property Name="Classification_ID" Type="Int32" Nullable="false" />
+          <Property Name="Classification_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CourseSchedules" Relationship="Self.FK__CourseSch__Class__59063A47" FromRole="CourseClassification" ToRole="CourseSchedule" />
+        </EntityType>
+        <EntityType Name="CourseSchedule">
+          <Key>
+            <PropertyRef Name="Course_ID" />
+          </Key>
+          <Property Name="Course_ID" Type="Int32" Nullable="false" />
+          <Property Name="Course_Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Language" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Start_Time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="End_Time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Course_Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Seats_Number" Type="Int32" Nullable="false" />
+          <Property Name="Course_Place" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="User_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Classification_ID" Type="Int32" Nullable="false" />
+          <Property Name="Course_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Certificate_ID" Type="Int32" Nullable="false" />
+          <Property Name="Trainer_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CertificateTemplate" Relationship="Self.FK__CourseSch__Certi__59FA5E80" FromRole="CourseSchedule" ToRole="CertificateTemplate" />
+          <NavigationProperty Name="CourseClassification" Relationship="Self.FK__CourseSch__Class__59063A47" FromRole="CourseSchedule" ToRole="CourseClassification" />
+          <NavigationProperty Name="RegisteredCourses" Relationship="Self.FK__Registere__Cours__5DCAEF64" FromRole="CourseSchedule" ToRole="RegisteredCourses" />
+        </EntityType>
+        <EntityType Name="RegisteredCours">
+          <Key>
+            <PropertyRef Name="User_ID" />
+            <PropertyRef Name="Course_ID" />
+          </Key>
+          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <Property Name="Course_ID" Type="Int32" Nullable="false" />
+          <Property Name="Attendance_Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Evaluation_Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Certificate_Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CourseSchedule" Relationship="Self.FK__Registere__Cours__5DCAEF64" FromRole="RegisteredCourses" ToRole="CourseSchedule" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Registere__User___5CD6CB2B" FromRole="RegisteredCourses" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="SupportTicket">
+          <Key>
+            <PropertyRef Name="Ticket_No" />
+          </Key>
+          <Property Name="Ticket_No" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK__SupportTi__User___5441852A" FromRole="SupportTickets" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="Role_ID" />
+          </Key>
+          <Property Name="Role_ID" Type="Int32" Nullable="false" />
+          <Property Name="Role_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Users__Role_ID__534D60F1" FromRole="UserRole" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <Property Name="Ar_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="En_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Role_ID" Type="Int32" Nullable="false" />
+          <Property Name="Degree" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Section" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="RegisteredCourses" Relationship="Self.FK__Registere__User___5CD6CB2B" FromRole="Users" ToRole="RegisteredCourses" />
+          <NavigationProperty Name="SupportTickets" Relationship="Self.FK__SupportTi__User___5441852A" FromRole="Users" ToRole="SupportTickets" />
+          <NavigationProperty Name="UserRole" Relationship="Self.FK__Users__Role_ID__534D60F1" FromRole="Users" ToRole="UserRole" />
+        </EntityType>
+        <Association Name="FK__CourseSch__Certi__59FA5E80">
+          <End Role="CertificateTemplate" Type="Self.CertificateTemplate" Multiplicity="1" />
+          <End Role="CourseSchedule" Type="Self.CourseSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CertificateTemplate">
+              <PropertyRef Name="Certificate_ID" />
+            </Principal>
+            <Dependent Role="CourseSchedule">
+              <PropertyRef Name="Certificate_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CourseSch__Class__59063A47">
+          <End Role="CourseClassification" Type="Self.CourseClassification" Multiplicity="1" />
+          <End Role="CourseSchedule" Type="Self.CourseSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CourseClassification">
+              <PropertyRef Name="Classification_ID" />
+            </Principal>
+            <Dependent Role="CourseSchedule">
+              <PropertyRef Name="Classification_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Registere__Cours__5DCAEF64">
+          <End Role="CourseSchedule" Type="Self.CourseSchedule" Multiplicity="1" />
+          <End Role="RegisteredCourses" Type="Self.RegisteredCours" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CourseSchedule">
+              <PropertyRef Name="Course_ID" />
+            </Principal>
+            <Dependent Role="RegisteredCourses">
+              <PropertyRef Name="Course_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Registere__User___5CD6CB2B">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="RegisteredCourses" Type="Self.RegisteredCours" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="RegisteredCourses">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SupportTi__User___5441852A">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="SupportTickets" Type="Self.SupportTicket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="SupportTickets">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Users__Role_ID__534D60F1">
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="1" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRole">
+              <PropertyRef Name="Role_ID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="Role_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TrainingSystemEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CertificateTemplates" EntityType="Self.CertificateTemplate" />
+          <EntitySet Name="CourseClassifications" EntityType="Self.CourseClassification" />
+          <EntitySet Name="CourseSchedules" EntityType="Self.CourseSchedule" />
+          <EntitySet Name="RegisteredCourses" EntityType="Self.RegisteredCours" />
+          <EntitySet Name="SupportTickets" EntityType="Self.SupportTicket" />
+          <EntitySet Name="UserRoles" EntityType="Self.UserRole" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK__CourseSch__Certi__59FA5E80" Association="Self.FK__CourseSch__Certi__59FA5E80">
+            <End Role="CertificateTemplate" EntitySet="CertificateTemplates" />
+            <End Role="CourseSchedule" EntitySet="CourseSchedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CourseSch__Class__59063A47" Association="Self.FK__CourseSch__Class__59063A47">
+            <End Role="CourseClassification" EntitySet="CourseClassifications" />
+            <End Role="CourseSchedule" EntitySet="CourseSchedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Registere__Cours__5DCAEF64" Association="Self.FK__Registere__Cours__5DCAEF64">
+            <End Role="CourseSchedule" EntitySet="CourseSchedules" />
+            <End Role="RegisteredCourses" EntitySet="RegisteredCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Registere__User___5CD6CB2B" Association="Self.FK__Registere__User___5CD6CB2B">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="RegisteredCourses" EntitySet="RegisteredCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SupportTi__User___5441852A" Association="Self.FK__SupportTi__User___5441852A">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="SupportTickets" EntitySet="SupportTickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users__Role_ID__534D60F1" Association="Self.FK__Users__Role_ID__534D60F1">
+            <End Role="UserRole" EntitySet="UserRoles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TrainingSystemModelStoreContainer" CdmEntityContainer="TrainingSystemEntities">
+          <EntitySetMapping Name="CertificateTemplates">
+            <EntityTypeMapping TypeName="TrainingSystemModel.CertificateTemplate">
+              <MappingFragment StoreEntitySet="CertificateTemplate">
+                <ScalarProperty Name="Certificate_ID" ColumnName="Certificate_ID" />
+                <ScalarProperty Name="Certificate_Template" ColumnName="Certificate_Template" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CourseClassifications">
+            <EntityTypeMapping TypeName="TrainingSystemModel.CourseClassification">
+              <MappingFragment StoreEntitySet="CourseClassification">
+                <ScalarProperty Name="Classification_ID" ColumnName="Classification_ID" />
+                <ScalarProperty Name="Classification_Name" ColumnName="Classification_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CourseSchedules">
+            <EntityTypeMapping TypeName="TrainingSystemModel.CourseSchedule">
+              <MappingFragment StoreEntitySet="CourseSchedule">
+                <ScalarProperty Name="Course_ID" ColumnName="Course_ID" />
+                <ScalarProperty Name="Course_Title" ColumnName="Course_Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Start_Time" ColumnName="Start_Time" />
+                <ScalarProperty Name="End_Time" ColumnName="End_Time" />
+                <ScalarProperty Name="Course_Status" ColumnName="Course_Status" />
+                <ScalarProperty Name="Seats_Number" ColumnName="Seats_Number" />
+                <ScalarProperty Name="Course_Place" ColumnName="Course_Place" />
+                <ScalarProperty Name="User_Type" ColumnName="User_Type" />
+                <ScalarProperty Name="Classification_ID" ColumnName="Classification_ID" />
+                <ScalarProperty Name="Course_Type" ColumnName="Course_Type" />
+                <ScalarProperty Name="Certificate_ID" ColumnName="Certificate_ID" />
+                <ScalarProperty Name="Trainer_Name" ColumnName="Trainer_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RegisteredCourses">
+            <EntityTypeMapping TypeName="TrainingSystemModel.RegisteredCours">
+              <MappingFragment StoreEntitySet="RegisteredCourses">
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="Course_ID" ColumnName="Course_ID" />
+                <ScalarProperty Name="Attendance_Status" ColumnName="Attendance_Status" />
+                <ScalarProperty Name="Evaluation_Status" ColumnName="Evaluation_Status" />
+                <ScalarProperty Name="Certificate_Status" ColumnName="Certificate_Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SupportTickets">
+            <EntityTypeMapping TypeName="TrainingSystemModel.SupportTicket">
+              <MappingFragment StoreEntitySet="SupportTickets">
+                <ScalarProperty Name="Ticket_No" ColumnName="Ticket_No" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="TrainingSystemModel.UserRole">
+              <MappingFragment StoreEntitySet="UserRole">
+                <ScalarProperty Name="Role_ID" ColumnName="Role_ID" />
+                <ScalarProperty Name="Role_Name" ColumnName="Role_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="TrainingSystemModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="Ar_Name" ColumnName="Ar_Name" />
+                <ScalarProperty Name="En_Name" ColumnName="En_Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Role_ID" ColumnName="Role_ID" />
+                <ScalarProperty Name="Degree" ColumnName="Degree" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Section" ColumnName="Section" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

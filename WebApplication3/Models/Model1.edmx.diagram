@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4760cb8b90d34300bf2904b4a8553b61" Name="Diagram1">
+        <EntityTypeShape EntityType="TrainingSystemModel.CertificateTemplate" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingSystemModel.CourseClassification" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingSystemModel.CourseSchedule" Width="1.5" PointX="3" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingSystemModel.RegisteredCours" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingSystemModel.SupportTicket" Width="1.5" PointX="5.25" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingSystemModel.UserRole" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingSystemModel.User" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
+        <AssociationConnector Association="TrainingSystemModel.FK__CourseSch__Certi__59FA5E80" ManuallyRouted="false" />
+        <AssociationConnector Association="TrainingSystemModel.FK__CourseSch__Class__59063A47" ManuallyRouted="false" />
+        <AssociationConnector Association="TrainingSystemModel.FK__Registere__Cours__5DCAEF64" ManuallyRouted="false" />
+        <AssociationConnector Association="TrainingSystemModel.FK__Registere__User___5CD6CB2B" ManuallyRouted="false" />
+        <AssociationConnector Association="TrainingSystemModel.FK__SupportTi__User___5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="TrainingSystemModel.FK__Users__Role_ID__534D60F1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

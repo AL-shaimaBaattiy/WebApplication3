@@ -1,0 +1,146 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_LayoutPage.cshtml";
+}
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام التدريب</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to bottom, #00c4cc 50%, #ffffff 50%);
+            margin: 0;
+            font-family: Arial, sans-serif;
+            direction: rtl;
+        }
+
+        .background-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('~/Content/your-background-image.jpg');
+            background-size: cover;
+            z-index: -1;
+        }
+
+        .login-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+            .login-container img {
+                max-width: 150px;
+            }
+
+            .login-container h2 {
+                margin: 20px 0;
+                font-size: 24px;
+                color: #333;
+            }
+
+            .login-container input {
+                width: calc(100% - 20px);
+                padding: 10px;
+                margin: 10px 0;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+            }
+
+            .login-container button {
+                background-color: #00c4cc;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+            }
+
+                .login-container button:hover {
+                    background-color: #00a1a7;
+                }
+
+            .login-container .remember-me {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 20px;
+            }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+            .toggle-switch input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+            .slider:before {
+                position: absolute;
+                content: "";
+                height: 20px;
+                width: 20px;
+                left: 2px;
+                bottom: 2px;
+                background-color: white;
+                transition: .4s;
+                border-radius: 50%;
+            }
+
+        input:checked + .slider {
+            background-color: #00c4cc;
+        }
+
+            input:checked + .slider:before {
+                transform: translateX(26px);
+            }
+    </style>
+</head>
+<body>
+    <div class="background-container"></div>
+    <div class="login-container">
+        <img src="https://iconape.com/wp-content/files/fc/370033/png/370033.png" alt="Logo" style="width:150px;height:150px;">
+        <h2>نظام التدريب</h2>
+        <form>
+            <input type="text" placeholder="اسم المستخدم" required>
+            <input type="password" placeholder="كلمة المرور" required>
+            <div class="remember-me">
+                <label for="remember">تذكرني</label>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="remember">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <button type="submit">تسجيل الدخول</button>
+        </form>
+    </div>
+</body>
+</html>
